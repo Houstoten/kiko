@@ -1,0 +1,8 @@
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:30:00"
+}

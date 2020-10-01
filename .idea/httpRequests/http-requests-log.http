@@ -1,0 +1,606 @@
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:30:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T110255.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T110230.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T110216.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T110008.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T105908.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T104530.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T102436.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": {
+  "year": 2020,
+  "month": 10,
+  "day": 5,
+  "hour": 12,
+  "minute": 0}
+}
+
+<> 2020-10-01T101857.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": {
+  "year": 2020,
+  "month": 10,
+  "day": 5,
+  "hour": 12,
+  "minute": 0}
+}
+
+<> 2020-10-01T101653.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": {
+  "year": 2020,
+  "month": 10,
+  "day": 5,
+  "hour": 12,
+  "minute": 0}
+}
+
+<> 2020-10-01T101614.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T101156.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T100529.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T100130.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T100009.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T100004.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T095602.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T095311.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T095211.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T095118.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T095042.500.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T094734.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T094044.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": "1"
+}
+
+<> 2020-10-01T092955.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": "1",
+  "tenantId": "11",
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T092553.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T092520.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T092424.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T092406.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T091443.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:00:00"
+}
+
+<> 2020-10-01T091402.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00:00"
+}
+
+<> 2020-10-01T091238.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00:00"
+}
+
+<> 2020-10-01T091035.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05_12:00:00"
+}
+
+<> 2020-10-01T085203.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00:00"
+}
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00:00"
+}
+
+<> 2020-10-01T084758.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00"
+}
+
+<> 2020-10-01T084711.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00"
+}
+
+<> 2020-10-01T084233.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05 12:00"
+}
+
+<> 2020-10-01T083159.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2016-01-25T21:34:55"
+}
+
+<> 2020-10-01T082832.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2016-01-25T21:34:55"
+}
+
+<> 2020-10-01T082616.400.txt
+
+###
+
