@@ -6,3 +6,14 @@ Content-Type: application/json
   "tenantId": 11,
   "date": "2020-10-05T12:20:00"
 }
+
+###
+
+PATCH http://localhost:5000/cancel
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}

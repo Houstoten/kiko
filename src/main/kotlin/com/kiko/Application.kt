@@ -13,10 +13,14 @@ import java.lang.Exception
 fun main() {
     val config = Configuration.readConfiguration();
     val app = Javalin.create().start(config[ApplicationConfiguration.port])
+    app.config.defaultContentType = "application/json"
     app.post("/request") { ctx ->
-        ctx.contentType("application/json")
-
+        ctx.status(200)
         toJsonOrThrow(ctx) { FlatService.requestViewing(ctx.body<RequestViewingDto>()) }
+    }
+    app.patch("/cancel") { ctx ->
+        ctx.status(204)
+        toJsonOrThrow(ctx) { FlatService.cancelViewing(ctx.body<RequestViewingDto>()) }
     }
 }
 

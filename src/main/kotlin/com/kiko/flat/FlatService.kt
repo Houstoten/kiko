@@ -2,6 +2,8 @@ package com.kiko.flat
 
 import com.kiko.flat.dto.RequestViewingDto
 import com.kiko.flat.exceptions.CannotReserveOnThisDate
+import com.kiko.flat.exceptions.NoSuchReservationException
+import com.kiko.flat.exceptions.WrongDateException
 import com.kiko.notification.NotificationService
 import com.kiko.notification.dto.NotifyCurrentDto
 import java.time.DayOfWeek
@@ -17,11 +19,8 @@ object FlatService {
     private val days: ClosedRange<LocalDate> = createSlotsForUpcomingWeek()
 
     fun requestViewing(dto: RequestViewingDto): ClosedRange<LocalDateTime> {
-        if (days.contains(dto.date.toLocalDate())
-            && daySlots.contains(dto.date.toLocalTime())
-            && dto.date.minusHours(24).isAfter(LocalDateTime.now())
-            && dto.date.minute % 20 == 0
-        ) {
+        if (checkTimeCommon(dto.date)) {
+
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
             val currentTenantId = FlatRepository.requestViewing(dto.flatId, dto.tenantId, range)
                 ?: throw CannotReserveOnThisDate(dto.flatId.toString(), range.start)
@@ -35,6 +34,27 @@ object FlatService {
             throw CannotReserveOnThisDate(dto.flatId.toString(), dto.date)
         }
     }
+
+    fun cancelViewing(dto: RequestViewingDto) {
+        if (checkTimeCommon(dto.date)) {
+            val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
+
+            val currentTenantId = FlatRepository.cancelViewing(dto.flatId, dto.tenantId, range)
+                ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
+
+            NotificationService.notifyCurrentTenantOfReservationCancellation(
+                NotifyCurrentDto(dto.flatId, range, dto.tenantId, currentTenantId)
+            )
+        } else {
+            throw WrongDateException(dto.date)
+        }
+    }
+
+    private fun checkTimeCommon(date: LocalDateTime): Boolean =
+        days.contains(date.toLocalDate())
+                && daySlots.contains(date.toLocalTime())
+                && date.minusHours(24).isAfter(LocalDateTime.now())
+                && date.minute % 20 == 0
 
     private fun createSlotsForUpcomingWeek(): ClosedRange<LocalDate> {
         val monday: LocalDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
