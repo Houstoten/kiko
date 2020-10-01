@@ -38,8 +38,8 @@ private fun toJsonOrThrow(ctx: Context, function: () -> Any) =
                 ctx.json(it)
             }, {
                 when (it) {
-                    is Exception -> throw BadRequestResponse(it.localizedMessage)
-                    else -> throw InternalServerErrorResponse(it.localizedMessage)
+                    is Exception -> throw BadRequestResponse(it.localizedMessage ?: "Unknown errrorrr")
+                    else -> throw InternalServerErrorResponse(it.localizedMessage ?: "Unknown errrorrr")
                 }
             }
         )

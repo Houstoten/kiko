@@ -71,11 +71,11 @@ object FlatService {
         if (checkTimeCommon(dto.date)) {
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
 
-            val tenantId = FlatRepository.rejectViewing(dto.flatId, dto.currentTenantId, range)
+            val pair = FlatRepository.rejectViewing(dto.flatId, dto.currentTenantId, range)
                 ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
 
-            NotificationService.notifyNewTenantOfReservationApprovement(
-                NotifyTenantDto(dto.flatId, range, tenantId, dto.currentTenantId)
+            NotificationService.notifyNewTenantOfReservationRejection(
+                NotifyTenantDto(dto.flatId, range, pair.first, dto.currentTenantId)
             )
 
         } else {

@@ -17,3 +17,25 @@ Content-Type: application/json
   "tenantId": 11,
   "date": "2020-10-05T12:20:00"
 }
+
+###
+
+PUT http://localhost:5000/approve
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "currentTenantId": 1,
+  "date": "2020-10-05T12:20:00"
+}
+
+###
+
+PUT http://localhost:5000/reject
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "currentTenantId": 1,
+  "date": "2020-10-05T12:20:00"
+}

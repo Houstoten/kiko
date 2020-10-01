@@ -43,7 +43,7 @@ object FlatRepository {
     fun requestViewing(flatId: Int, tenantId: Int, range: ClosedRange<LocalDateTime>): Int? =
         checkForFlatAndTenant(flatId, tenantId)
             .takeIf {
-                it.reservations.putIfAbsent(range, Pair(tenantId, false)) == null
+                it.reservations.putIfAbsent(range, Pair(tenantId, null)) == null
             }?.currentTenantId
 
     @Synchronized
@@ -53,20 +53,13 @@ object FlatRepository {
                 it.reservations[range] != null && it.reservations.remove(range) != null
             }?.currentTenantId
 
-
     @Synchronized
-    fun approveViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
+    fun approveViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean?>? =
         checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
-            .reservations.computeIfPresent(range) { _, v -> v.copy(second = true) }
+            .reservations.takeIf { it[range]?.second == null }?.computeIfPresent(range) { _, v -> v.copy(second = true) }
 
     @Synchronized
-    fun rejectViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Int? =
-        with(checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
-            .reservations){
-            val tenantId = get(range)?.first
-            computeIfPresent(range) { _, _ -> null }
-            tenantId
-        }
-
-
+    fun rejectViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean?>? =
+        checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
+            .reservations.takeIf { it[range]?.second == null }?.computeIfPresent(range) { _, v -> v.copy(second = false) }
 }
