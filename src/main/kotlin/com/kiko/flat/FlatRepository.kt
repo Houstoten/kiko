@@ -3,6 +3,7 @@ package com.kiko.flat
 import com.kiko.flat.exceptions.AlreadyTenantException
 import com.kiko.flat.exceptions.CannotReserveOnThisDate
 import com.kiko.flat.exceptions.NoSuchFlatException
+import com.kiko.flat.exceptions.NotCurrentTenantException
 import com.kiko.flat.model.Flat
 import java.lang.RuntimeException
 import java.time.LocalDateTime
@@ -18,19 +19,45 @@ object FlatRepository {
             3 to Flat(3, 3, HashMap(), ConcurrentHashMap())
     ))
 
+    private fun checkForFlatAndTenant(flatId: Int, tenantId: Int): Flat =
+            checkForTenant(checkForFlat(flatId), tenantId)
+
+    private fun checkForFlat(flatId: Int): Flat = (flats[flatId] ?: throw NoSuchFlatException(flatId.toString()))
+
+    private fun checkForTenant(flat: Flat, tenantId: Int): Flat =
+            flat.takeIf {
+                tenantId != it.currentTenantId
+            } ?: throw AlreadyTenantException(flat.flatId.toString())
+
+    private fun checkForCurrentTenant(flat: Flat, tenantId: Int): Flat =
+            flat.takeIf {
+                tenantId == it.currentTenantId
+            } ?: throw NotCurrentTenantException(flat.flatId.toString())
+
     @Synchronized
-    fun bookSomeDate(flatId: Int, tenantId: Int, range: ClosedRange<LocalDateTime>): Int? =
-            ((flats[flatId] ?: throw NoSuchFlatException(flatId.toString()))
-                    .takeIf {
-                        tenantId != it.currentTenantId
-                    } ?: throw AlreadyTenantException(flatId.toString()))
-                    .reservations.putIfAbsent(range, tenantId)
+    fun requestViewing(flatId: Int, tenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
+            checkForFlatAndTenant(flatId, tenantId)
+                    .reservations.putIfAbsent(range, Pair(tenantId, false))
 
 //                    .takeIf {
 //                        it == tenantId
 //                    }
 //                    ?: throw CannotReserveOnThisDate(flatId.toString(), range.start)
 
+    @Synchronized
+    fun cancelViewing(flatId: Int, tenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
+            checkForFlatAndTenant(flatId, tenantId)
+                    .reservations.remove(range)
+
+    @Synchronized
+    fun approveViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
+            checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
+                    .reservations.computeIfPresent(range) { _, v -> v.copy(second = true) }
+
+    @Synchronized
+    fun rejectViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
+            checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
+                    .reservations.computeIfPresent(range) { _, _ -> null }
 
 
 }
