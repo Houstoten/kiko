@@ -10,8 +10,12 @@ import io.javalin.http.InternalServerErrorResponse
 import java.lang.Exception
 
 fun main() {
-    val config = Configuration.readConfiguration();
-    val app = Javalin.create().start(config[ApplicationConfiguration.port])
+    val config = Configuration.readConfiguration()
+    init(config[ApplicationConfiguration.port])
+}
+
+fun init(port: Int): Javalin {
+    val app = Javalin.create().start(port)
     app.config.defaultContentType = "application/json"
     app.post("/request") { ctx ->
         ctx.status(200)
@@ -29,6 +33,7 @@ fun main() {
         ctx.status(200)
         toJsonOrThrow(ctx) { FlatService.rejectViewing(ctx.body<ApproveRejectViewingDto>()) }
     }
+    return app
 }
 
 private fun toJsonOrThrow(ctx: Context, function: () -> Any) =

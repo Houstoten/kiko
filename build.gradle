@@ -10,6 +10,15 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Test.class" // whatever Ant pattern matches your test class files
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -19,4 +28,14 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3'
     compile 'org.slf4j:slf4j-simple:1.7.30'
+// https://mvnrepository.com/artifact/com.github.kittinunf.fuel/fuel
+    compile group: 'com.github.kittinunf.fuel', name: 'fuel', version: '2.3.0'
+// https://mvnrepository.com/artifact/com.github.kittinunf.fuel/fuel-jackson
+    runtime group: 'com.github.kittinunf.fuel', name: 'fuel-jackson', version: '2.3.0'
+// https://mvnrepository.com/artifact/com.github.kittinunf.fuel/fuel-coroutines
+    compile group: 'com.github.kittinunf.fuel', name: 'fuel-coroutines', version: '2.3.0'
+// https://mvnrepository.com/artifact/com.github.kittinunf.fuel/fuel-rxjava
+    compile group: 'com.github.kittinunf.fuel', name: 'fuel-rxjava', version: '2.3.0'
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
 }
