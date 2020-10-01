@@ -1,11 +1,12 @@
 package com.kiko.flat
 
-import com.kiko.flat.dto.RequestViewingDto
+import com.kiko.flat.dto.ApproveRejectViewingDto
+import com.kiko.flat.dto.RequestCancelViewingDto
 import com.kiko.flat.exceptions.CannotReserveOnThisDate
 import com.kiko.flat.exceptions.NoSuchReservationException
 import com.kiko.flat.exceptions.WrongDateException
 import com.kiko.notification.NotificationService
-import com.kiko.notification.dto.NotifyCurrentDto
+import com.kiko.notification.dto.NotifyTenantDto
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -18,33 +19,65 @@ object FlatService {
         LocalTime.of(10, 0)..LocalTime.of(19, 40)  //daily minutes range
     private val days: ClosedRange<LocalDate> = createSlotsForUpcomingWeek()
 
-    fun requestViewing(dto: RequestViewingDto): ClosedRange<LocalDateTime> {
-        if (checkTimeCommon(dto.date)) {
+    fun requestViewing(dtoCancel: RequestCancelViewingDto): ClosedRange<LocalDateTime> {
+        if (checkTimeCommon(dtoCancel.date)) {
 
-            val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
-            val currentTenantId = FlatRepository.requestViewing(dto.flatId, dto.tenantId, range)
-                ?: throw CannotReserveOnThisDate(dto.flatId.toString(), range.start)
+            val range = dtoCancel.date..dtoCancel.date.plusMinutes(viewingSlotRange)
+            val currentTenantId = FlatRepository.requestViewing(dtoCancel.flatId, dtoCancel.tenantId, range)
+                ?: throw CannotReserveOnThisDate(dtoCancel.flatId.toString(), range.start)
 
             NotificationService.notifyCurrentTenantOfNewRequest(
-                NotifyCurrentDto(dto.flatId, range, dto.tenantId, currentTenantId)
+                NotifyTenantDto(dtoCancel.flatId, range, dtoCancel.tenantId, currentTenantId)
             )
 
             return range
         } else {
-            throw CannotReserveOnThisDate(dto.flatId.toString(), dto.date)
+            throw CannotReserveOnThisDate(dtoCancel.flatId.toString(), dtoCancel.date)
         }
     }
 
-    fun cancelViewing(dto: RequestViewingDto) {
+    fun cancelViewing(dtoCancel: RequestCancelViewingDto) {
+        if (checkTimeCommon(dtoCancel.date)) {
+            val range = dtoCancel.date..dtoCancel.date.plusMinutes(viewingSlotRange)
+
+            val currentTenantId = FlatRepository.cancelViewing(dtoCancel.flatId, dtoCancel.tenantId, range)
+                ?: throw NoSuchReservationException(dtoCancel.flatId.toString(), range.start)
+
+            NotificationService.notifyCurrentTenantOfReservationCancellation(
+                NotifyTenantDto(dtoCancel.flatId, range, dtoCancel.tenantId, currentTenantId)
+            )
+        } else {
+            throw WrongDateException(dtoCancel.date)
+        }
+    }
+
+    fun approveViewing(dto: ApproveRejectViewingDto) {
         if (checkTimeCommon(dto.date)) {
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
 
-            val currentTenantId = FlatRepository.cancelViewing(dto.flatId, dto.tenantId, range)
+            val pair = FlatRepository.approveViewing(dto.flatId, dto.currentTenantId, range)
                 ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
 
-            NotificationService.notifyCurrentTenantOfReservationCancellation(
-                NotifyCurrentDto(dto.flatId, range, dto.tenantId, currentTenantId)
+            NotificationService.notifyNewTenantOfReservationApprovement(
+                NotifyTenantDto(dto.flatId, range, pair.first, dto.currentTenantId)
             )
+
+        } else {
+            throw WrongDateException(dto.date)
+        }
+    }
+
+    fun rejectViewing(dto: ApproveRejectViewingDto) {
+        if (checkTimeCommon(dto.date)) {
+            val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
+
+            val tenantId = FlatRepository.rejectViewing(dto.flatId, dto.currentTenantId, range)
+                ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
+
+            NotificationService.notifyNewTenantOfReservationApprovement(
+                NotifyTenantDto(dto.flatId, range, tenantId, dto.currentTenantId)
+            )
+
         } else {
             throw WrongDateException(dto.date)
         }
@@ -60,5 +93,5 @@ object FlatService {
         val monday: LocalDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
         val sunday: LocalDate = monday.with(TemporalAdjusters.next(DayOfWeek.SUNDAY))
         return monday..sunday
-    }
+    }// TODO: 01.10.2020 timer
 }

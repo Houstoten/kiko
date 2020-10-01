@@ -60,9 +60,13 @@ object FlatRepository {
             .reservations.computeIfPresent(range) { _, v -> v.copy(second = true) }
 
     @Synchronized
-    fun rejectViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Pair<Int, Boolean>? =
-        checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
-            .reservations.computeIfPresent(range) { _, _ -> null }
+    fun rejectViewing(flatId: Int, currentTenantId: Int, range: ClosedRange<LocalDateTime>): Int? =
+        with(checkForCurrentTenant(checkForFlat(flatId), currentTenantId)
+            .reservations){
+            val tenantId = get(range)?.first
+            computeIfPresent(range) { _, _ -> null }
+            tenantId
+        }
 
 
 }

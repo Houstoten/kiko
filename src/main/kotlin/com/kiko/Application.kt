@@ -1,9 +1,8 @@
 package com.kiko
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.kiko.flat.FlatService
-import com.kiko.flat.dto.RequestViewingDto
+import com.kiko.flat.dto.ApproveRejectViewingDto
+import com.kiko.flat.dto.RequestCancelViewingDto
 import io.javalin.Javalin
 import io.javalin.http.BadRequestResponse
 import io.javalin.http.Context
@@ -16,11 +15,19 @@ fun main() {
     app.config.defaultContentType = "application/json"
     app.post("/request") { ctx ->
         ctx.status(200)
-        toJsonOrThrow(ctx) { FlatService.requestViewing(ctx.body<RequestViewingDto>()) }
+        toJsonOrThrow(ctx) { FlatService.requestViewing(ctx.body<RequestCancelViewingDto>()) }
     }
     app.patch("/cancel") { ctx ->
         ctx.status(204)
-        toJsonOrThrow(ctx) { FlatService.cancelViewing(ctx.body<RequestViewingDto>()) }
+        toJsonOrThrow(ctx) { FlatService.cancelViewing(ctx.body<RequestCancelViewingDto>()) }
+    }
+    app.put("/approve") { ctx ->
+        ctx.status(200)
+        toJsonOrThrow(ctx) { FlatService.approveViewing(ctx.body<ApproveRejectViewingDto>()) }
+    }
+    app.put("/reject") { ctx ->
+        ctx.status(200)
+        toJsonOrThrow(ctx) { FlatService.rejectViewing(ctx.body<ApproveRejectViewingDto>()) }
     }
 }
 

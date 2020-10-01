@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import java.time.LocalDateTime
 
-class RequestViewingDto(
+class RequestCancelViewingDto(
         var flatId: Int,
         var tenantId: Int,
         @JsonDeserialize(using = LocalDateTimeDeserializer::class)
