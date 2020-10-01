@@ -11,13 +11,16 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalAdjusters
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.concurrent.fixedRateTimer
 
 object FlatService {
     private const val viewingSlotRange: Long = 20 //in minutes
     private val daySlots: ClosedRange<LocalTime> =
         LocalTime.of(10, 0)..LocalTime.of(19, 40)  //daily minutes range
-    private val days: ClosedRange<LocalDate> = createSlotsForUpcomingWeek()
+    private val days: ClosedRange<LocalDate> = newWeekSwapper()
 
     fun requestViewing(dtoCancel: RequestCancelViewingDto): ClosedRange<LocalDateTime> {
         if (checkTimeCommon(dtoCancel.date)) {
@@ -93,5 +96,19 @@ object FlatService {
         val monday: LocalDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
         val sunday: LocalDate = monday.with(TemporalAdjusters.next(DayOfWeek.SUNDAY))
         return monday..sunday
-    }// TODO: 01.10.2020 timer
+    }
+
+    private fun newWeekSwapper(): ClosedRange<LocalDate> {
+        fixedRateTimer(
+            "weekSwapper",
+            true,
+            ChronoUnit.MILLIS.between(
+                LocalDateTime.now(),
+                LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY)).atStartOfDay()
+            ),
+            1000L * 60L * 60L * 24L * 7L
+        ) { FlatRepository.swapOnNewWeek(); createSlotsForUpcomingWeek() }
+
+        return createSlotsForUpcomingWeek()
+    }
 }

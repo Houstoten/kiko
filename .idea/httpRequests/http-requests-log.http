@@ -1,3 +1,92 @@
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T100552.200.json
+
+###
+
+PUT http://localhost:5000/reject
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "currentTenantId": 1,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T100114.200.json
+
+###
+
+PUT http://localhost:5000/reject
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "currentTenantId": 12,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T100109.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T100057.200.json
+
+###
+
+PATCH http://localhost:5000/cancel
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+###
+
+PUT http://localhost:5000/approve
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "currentTenantId": 1,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T100042.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T095952.200.json
+
+###
+
 PUT http://localhost:5000/approve
 Content-Type: application/json
 
@@ -548,95 +637,6 @@ Content-Type: application/json
 }
 
 <> 2020-10-01T054917.200.json
-
-###
-
-PUT http://localhost:5000/approve
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "currentTenantId": 2,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054910.400.json
-
-###
-
-PUT http://localhost:5000/approve
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "currentTenantId": 1,
-  "date": "2020-10-05T12:40:00"
-}
-
-<> 2020-10-01T054854.400.json
-
-###
-
-POST http://localhost:5000/request
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054833.200.json
-
-###
-
-PATCH http://localhost:5000/cancel
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-###
-
-POST http://localhost:5000/request
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T024638.200.json
-
-###
-
-PATCH http://localhost:5000/cancel
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T024317.200.json
-
-###
-
-PATCH http://localhost:5000/cancel
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 10,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T024312.400.json
 
 ###
 
