@@ -7,6 +7,84 @@ Content-Type: application/json
   "date": "2020-10-05T12:20:00"
 }
 
+<> 2020-10-01T102343.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T102313.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T102111.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T101718.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T101706.400.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
+<> 2020-10-01T101328.200.json
+
+###
+
+POST http://localhost:5000/request
+Content-Type: application/json
+
+{
+  "flatId": 1,
+  "tenantId": 11,
+  "date": "2020-10-05T12:20:00"
+}
+
 <> 2020-10-01T100552.200.json
 
 ###
@@ -561,82 +639,6 @@ Content-Type: application/json
 }
 
 <> 2020-10-01T055007.200.json
-
-###
-
-PATCH http://localhost:5000/cancel
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T055003.400.json
-
-###
-
-PUT http://localhost:5000/approve
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "currentTenantId": 1,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054957.400.json
-
-###
-
-PATCH http://localhost:5000/cancel
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-###
-
-POST http://localhost:5000/request
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "tenantId": 11,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054940.400.json
-
-###
-
-PUT http://localhost:5000/approve
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "currentTenantId": 1,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054930.200.json
-
-###
-
-PUT http://localhost:5000/approve
-Content-Type: application/json
-
-{
-  "flatId": 1,
-  "currentTenantId": 1,
-  "date": "2020-10-05T12:20:00"
-}
-
-<> 2020-10-01T054917.200.json
 
 ###
 

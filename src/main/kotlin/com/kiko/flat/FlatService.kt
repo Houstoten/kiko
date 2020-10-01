@@ -2,6 +2,7 @@ package com.kiko.flat
 
 import com.kiko.flat.dto.ApproveRejectViewingDto
 import com.kiko.flat.dto.RequestCancelViewingDto
+import com.kiko.flat.dto.SuccessfulRequestDto
 import com.kiko.flat.exceptions.CannotReserveOnThisDate
 import com.kiko.flat.exceptions.NoSuchReservationException
 import com.kiko.flat.exceptions.WrongDateException
@@ -22,20 +23,20 @@ object FlatService {
         LocalTime.of(10, 0)..LocalTime.of(19, 40)  //daily minutes range
     private val days: ClosedRange<LocalDate> = newWeekSwapper()
 
-    fun requestViewing(dtoCancel: RequestCancelViewingDto): ClosedRange<LocalDateTime> {
-        if (checkTimeCommon(dtoCancel.date)) {
+    fun requestViewing(dto: RequestCancelViewingDto): SuccessfulRequestDto {
+        if (checkTimeCommon(dto.date)) {
 
-            val range = dtoCancel.date..dtoCancel.date.plusMinutes(viewingSlotRange)
-            val currentTenantId = FlatRepository.requestViewing(dtoCancel.flatId, dtoCancel.tenantId, range)
-                ?: throw CannotReserveOnThisDate(dtoCancel.flatId.toString(), range.start)
+            val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
+            val currentTenantId = FlatRepository.requestViewing(dto.flatId, dto.tenantId, range)
+                ?: throw CannotReserveOnThisDate(dto.flatId.toString(), range.start)
 
             NotificationService.notifyCurrentTenantOfNewRequest(
-                NotifyTenantDto(dtoCancel.flatId, range, dtoCancel.tenantId, currentTenantId)
+                NotifyTenantDto(dto.flatId, range, dto.tenantId, currentTenantId)
             )
 
-            return range
+            return SuccessfulRequestDto(dto.flatId, range.start, range.endInclusive)
         } else {
-            throw CannotReserveOnThisDate(dtoCancel.flatId.toString(), dtoCancel.date)
+            throw CannotReserveOnThisDate(dto.flatId.toString(), dto.date)
         }
     }
 
