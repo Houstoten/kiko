@@ -13,24 +13,27 @@ import java.time.temporal.TemporalAdjusters
 object FlatService {
     private const val viewingSlotRange: Long = 20 //in minutes
     private val daySlots: ClosedRange<LocalTime> =
-            LocalTime.of(10, 0)..LocalTime.of(19, 40)  //daily minutes range
+        LocalTime.of(10, 0)..LocalTime.of(19, 40)  //daily minutes range
     private val days: ClosedRange<LocalDate> = createSlotsForUpcomingWeek()
 
-    fun requestViewing(dto: RequestViewingDto): ClosedRange<LocalDateTime>? {
+    fun requestViewing(dto: RequestViewingDto): ClosedRange<LocalDateTime> {
         if (days.contains(dto.date.toLocalDate())
-                && daySlots.contains(dto.date.toLocalTime())
-                && dto.date.minusHours(24).isAfter(LocalDateTime.now())
-                && dto.date.minute % 20 == 0) {
+            && daySlots.contains(dto.date.toLocalTime())
+            && dto.date.minusHours(24).isAfter(LocalDateTime.now())
+            && dto.date.minute % 20 == 0
+        ) {
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
             val currentTenantId = FlatRepository.requestViewing(dto.flatId, dto.tenantId, range)
-                    ?: throw CannotReserveOnThisDate(dto.flatId.toString(), range.start)
+                ?: throw CannotReserveOnThisDate(dto.flatId.toString(), range.start)
 
             NotificationService.notifyCurrentTenantOfNewRequest(
-                    NotifyCurrentDto(dto.flatId, range, dto.tenantId, currentTenantId))
+                NotifyCurrentDto(dto.flatId, range, dto.tenantId, currentTenantId)
+            )
 
             return range
+        } else {
+            throw CannotReserveOnThisDate(dto.flatId.toString(), dto.date)
         }
-        return null
     }
 
     private fun createSlotsForUpcomingWeek(): ClosedRange<LocalDate> {
