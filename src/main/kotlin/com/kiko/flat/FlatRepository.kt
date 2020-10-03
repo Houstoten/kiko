@@ -1,21 +1,14 @@
 package com.kiko.flat
 
-import com.kiko.Reservation
+import com.kiko.reservation.Reservation
 import com.kiko.flat.exceptions.AlreadyTenantException
 import com.kiko.flat.exceptions.BadCredentialsException
 import com.kiko.flat.exceptions.NoSuchFlatException
 import com.kiko.flat.exceptions.NotCurrentTenantException
 import com.kiko.flat.model.Flat
-import java.time.DayOfWeek
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
-import java.time.temporal.TemporalAdjusters
-import java.util.*
 
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.HashMap
-import kotlin.concurrent.fixedRateTimer
 
 object FlatRepository {
 

@@ -1,4 +1,4 @@
-package com.kiko
+package com.kiko.reservation
 
 import java.time.LocalDateTime
 
