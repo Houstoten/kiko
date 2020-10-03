@@ -59,11 +59,11 @@ object FlatService {
         if (checkTimeCommon(dto.date)) {
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
 
-            val pair = FlatRepository.approveViewing(dto.flatId, dto.currentTenantId, range)
+            val tenantId = FlatRepository.approveViewing(dto.flatId, dto.currentTenantId, range)
                 ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
 
             NotificationService.notifyNewTenantOfReservationApprovement(
-                NotifyTenantDto(dto.flatId, range, pair.first, dto.currentTenantId)
+                NotifyTenantDto(dto.flatId, range, tenantId, dto.currentTenantId)
             )
 
         } else {
@@ -75,11 +75,11 @@ object FlatService {
         if (checkTimeCommon(dto.date)) {
             val range = dto.date..dto.date.plusMinutes(viewingSlotRange)
 
-            val pair = FlatRepository.rejectViewing(dto.flatId, dto.currentTenantId, range)
+            val tenantId = FlatRepository.rejectViewing(dto.flatId, dto.currentTenantId, range)
                 ?: throw NoSuchReservationException(dto.flatId.toString(), range.start)
 
             NotificationService.notifyNewTenantOfReservationRejection(
-                NotifyTenantDto(dto.flatId, range, pair.first, dto.currentTenantId)
+                NotifyTenantDto(dto.flatId, range, tenantId, dto.currentTenantId)
             )
 
         } else {
@@ -108,7 +108,7 @@ object FlatService {
                 LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY)).atStartOfDay()
             ),
             1000L * 60L * 60L * 24L * 7L
-        ) { FlatRepository.swapOnNewWeek(); createSlotsForUpcomingWeek() }
+        ) { createSlotsForUpcomingWeek() }
 
         return createSlotsForUpcomingWeek()
     }
